@@ -22,6 +22,30 @@ const puppeteer = require('puppeteer');
     // Presiona el boton
     await page.click('#loginButton_0');
 
+    // Espera a que logee
+    await page.waitForNavigation();
 
+    // Se dirige a asignaciones
+    await page.goto('https://asignacion.ingenieria.usac.edu.gt/vacaciones/asignacion');
+
+    // Espera a que cargue el form
+    await page.waitForSelector('#formulario-asignacion');
+
+    // Modifica el input
+    // var inputDeCursos = document.querySelector("form[name='second'] input[name='secondText']");
+    // ver que ondas hacer aca 
+
+
+    // [{ "codigo": codigo, "seccion": seccion, "seccionLaboratorio": seccionLab }]
+
+
+    // Info del input
+
+    // Para un clase
+    // [{"codigo":"0118","seccion":"A","seccionLaboratorio":"NULL"}]
+    // Para dos clases
+    // [{"codigo":"0009","seccion":"","seccionLaboratorio":"NULL"},{"codigo":"0118","seccion":"A","seccionLaboratorio":"NULL"}]
+
+    // Cierra el navegador
     // await browser.close();
 })()
