@@ -1,10 +1,12 @@
-// para correr node .\index.js usuario contraseña
+// para correr node .\index.js y cambiar los datos del datos-cursos.json
 
 const puppeteer = require('puppeteer');
+let datosCursos = require('./datos-cursos.json');
 
 (async () => {
-    const args = await process.argv;
-    // console.log(args);
+
+    // Encerrar esto en un while(true) con try y catch? https://stackoverflow.com/questions/55236975/how-to-reload-page-in-puppeteer
+
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto('https://proxy.ingenieria.usac.edu.gt/autenticacion/XUI/#login/&goto=https://dashboardacademico.ingenieria.usac.edu.gt/login');
@@ -16,8 +18,8 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('#loginButton_0');
 
     // Introduce datos
-    await page.type('#idToken1', args[2]);
-    await page.type('#idToken2', args[3]);
+    await page.type('#idToken1', datosCursos.user);
+    await page.type('#idToken2', datosCursos.password);
 
     // Presiona el boton
     await page.click('#loginButton_0');
@@ -32,19 +34,16 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('#formulario-asignacion');
 
     // Modifica el input
-    // var inputDeCursos = document.querySelector("form[name='second'] input[name='secondText']");
-    // ver que ondas hacer aca 
+    await page.evaluate((datos) => {
+        datosValue = JSON.stringify(datos);
+        document.querySelector("#formulario-asignacion input[name='cursos']").value = datosValue;
+    }, datosCursos.courses);
 
+    // Da click al boton de asignar
+    await page.click('.mdi-account-plus');
 
-    // [{ "codigo": codigo, "seccion": seccion, "seccionLaboratorio": seccionLab }]
-
-
-    // Info del input
-
-    // Para un clase
-    // [{"codigo":"0118","seccion":"A","seccionLaboratorio":"NULL"}]
-    // Para dos clases
-    // [{"codigo":"0009","seccion":"","seccionLaboratorio":"NULL"},{"codigo":"0118","seccion":"A","seccionLaboratorio":"NULL"}]
+    // Da click al boton de asignar definitavemente
+    // await page.click('.mdi-content-save-all');
 
     // Cierra el navegador
     // await browser.close();

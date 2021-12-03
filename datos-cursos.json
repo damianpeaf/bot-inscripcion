@@ -1,0 +1,11 @@
+{
+    "user": "202110479",
+    "password": "2020001818",
+    "courses": [
+        {
+            "codigo": "0118",
+            "seccion": "A",
+            "seccionLaboratorio": "NULL"
+        }
+    ]
+}
