@@ -25,7 +25,7 @@ let datosCursos = require('./datos-cursos.json');
     await page.click('#loginButton_0');
 
     // Espera a que logee
-    await page.waitForNavigation();
+    await page.waitForSelector('.nav-link');
 
     // Se dirige a asignaciones
     await page.goto('https://asignacion.ingenieria.usac.edu.gt/vacaciones/asignacion');
@@ -43,6 +43,8 @@ let datosCursos = require('./datos-cursos.json');
     await page.click('.mdi-account-plus');
 
     // Da click al boton de asignar definitavemente
+    // OJO CON esta linea !!!!!!!!!!!!!!
+    await page.waitForSelector('.mdi-content-save-all');
     // await page.click('.mdi-content-save-all');
 
     // Cierra el navegador
